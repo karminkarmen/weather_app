@@ -2,7 +2,7 @@ import React from "react";
 
 const Weather = ({city, country, temperature, humidity, description, info}) => {
     return (
-        <div>
+        <div className="column">
             { city && country && <p>Location: {city}, {country}</p> }
             { temperature && <p>Temperature: {temperature}</p> }
             { humidity && <p>Humidity: {humidity}</p> }

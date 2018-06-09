@@ -4,6 +4,7 @@ import Titles from "./components/titles.js";
 import Form from "./components/form.js";
 import Weather from "./components/weather.js";
 import "semantic-ui/dist/semantic.min.css";
+import ""
 
 const API_KEY = '094494d1ce4e4d6d4c1d0a5f68ca29cc';
 
@@ -78,18 +79,19 @@ class App extends React.Component {
 
     render() {
        return (
-           <div>
+           <div className="ui container">
                 <Titles />
-                <Form getWeather={this.getWeather}/>
-                <Weather
-                    temperature={this.state.temperature}
-                    city={this.state.city}
-                    country={this.state.country}
-                    humidity={this.state.humidity}
-                    description={this.state.description}
-                    info={this.state.info}
-                />
-
+               <div className="ui three column doubling stackable grid container">
+                   <Form getWeather={this.getWeather}/>
+                    <Weather
+                        temperature={this.state.temperature}
+                        city={this.state.city}
+                        country={this.state.country}
+                        humidity={this.state.humidity}
+                        description={this.state.description}
+                        info={this.state.info}
+                    />
+               </div>
            </div>
        );
     }
