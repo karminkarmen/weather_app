@@ -2,7 +2,7 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://karminkarmen.github.io/REACT-weather-app/build",
+  "homepage": "https://karminkarmen.github.io/REACT-weather-app",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

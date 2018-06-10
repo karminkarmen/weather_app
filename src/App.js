@@ -58,7 +58,7 @@ class App extends React.Component {
             });
             return;
         }
-        const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`);
+        const api_call = await fetch(`//api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`);
         const data = await api_call.json();
         console.log(data);
         if(!data.main){
@@ -89,7 +89,7 @@ class App extends React.Component {
             });
         }
 
-        const geoloc_api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
+        const geoloc_api_call = await fetch(`//api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
 
         const data = await geoloc_api_call.json();
         console.log(data);
