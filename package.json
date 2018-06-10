@@ -2,19 +2,24 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://karminkarmen.github.io/REACT-weather-app/",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
   "dependencies": {
     "@material-ui/core": "^1.2.0",
+    "eslint": "^4.19.1",
+    "gh-pages": "^1.2.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-geolocated": "^2.4.0",
     "react-geolocation": "^1.0.3",
     "react-scripts": "1.1.4",
     "semantic-ui": "^2.3.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
   }
 }

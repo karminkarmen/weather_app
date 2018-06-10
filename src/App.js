@@ -4,7 +4,7 @@ import Titles from "./components/titles.js";
 import Form from "./components/form.js";
 import Weather from "./components/weather.js";
 import "semantic-ui/dist/semantic.min.css";
-import ""
+
 
 const API_KEY = '094494d1ce4e4d6d4c1d0a5f68ca29cc';
 
@@ -102,5 +102,5 @@ export default geolocated({
     positionOptions: {
         enableHighAccuracy: false,
     },
-    userDecisionTimeout: 100,
+    userDecisionTimeout: 100
 })(App);
