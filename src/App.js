@@ -3,8 +3,9 @@ import {geolocated} from 'react-geolocated';
 import Titles from "./components/titles.js";
 import Form from "./components/form.js";
 import Weather from "./components/weather.js";
+import WeatherIcon from "./components/weathericon.js"
+import ColorConfig from "./color-config.json";
 import "semantic-ui/dist/semantic.min.css";
-
 
 const API_KEY = '094494d1ce4e4d6d4c1d0a5f68ca29cc';
 
@@ -16,53 +17,94 @@ class App extends React.Component {
         country: undefined,
         humidity: undefined,
         description: undefined,
-        info: undefined
+        icon: undefined,
+        info: undefined,
+        bgColor: "white"
+    };
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.coords) {
+            this.getGeoWeather(nextProps);
+        }
+    }
+
+    setColor = () => {
+        const icon = this.state.icon;
+        const temp = this.state.temperature;
+
+        let color = this.getColorFromConfig(temp, icon);
+
+        this.setState({
+            bgColor: color
+        })
+    };
+
+    getColorFromConfig = (temp, icon) => {
+        console.log(temp, icon);
+        for (let c of ColorConfig) {
+            if ((c.temp.min === undefined || temp >= c.temp.min) && (c.temp.max === undefined || temp < c.temp.max) && (!c.icon.length || c.icon.includes(icon))) {
+                return c.color;
+            }
+        }
+        return null;
     };
 
     getWeather = async (e) => {
         e.preventDefault();
-        const city = e.target.elements.city.value;
-        const country = e.target.elements.country.value;
-
-        const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`);
-
-        const data = await api_call.json();
-
-        if (city && country) {
-            console.log(data);
+        const location = e.target.elements.location.value;
+        if  (!location) {
             this.setState({
-                temperature: data.main.temp,
-                city: data.name,
-                country: data.sys.country,
-                humidity: data.main.humidity,
-                description: data.weather[0].description
+                info: "Please input location"
             });
-        } else {
-            this.setState({
-                info: "Please input city and country"
-            })
+            return;
         }
+        const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`);
+        const data = await api_call.json();
+        console.log(data);
+        if(!data.main){
+            this.setState({
+                info: 'Location not found'
+            });
+            return
+        }
+        this.setState({
+            temperature: data.main.temp,
+            city: data.name,
+            country: data.sys.country,
+            humidity: data.main.humidity,
+            icon: data.weather[0].icon,
+            description: data.weather[0].description,
+            info: ''
+        });
+        this.setColor();
     };
 
-    getGeoWeather = async () => {
-        const {coords} = this.props;
+    getGeoWeather = async ({coords, isGeolocationEnabled, isGeolocationAvailable}) => {
         const lat = coords.latitude;
         const lon = coords.longitude;
+
+        if(!coords) {
+            this.setState({
+                info: "Wait"
+            });
+        }
 
         const geoloc_api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
 
         const data = await geoloc_api_call.json();
+        console.log(data);
 
-        if (this.props.isGeolocationAvailable) {
+        if (isGeolocationAvailable) {
             this.setState({
                 temperature: data.main.temp,
                 city: data.name,
                 country: data.sys.country,
                 humidity: data.main.humidity,
                 description: data.weather[0].description,
+                icon: data.weather[0].icon,
                 info: ''
             });
-        } else if (!this.props.isGeolocationEnabled) {
+        } else if (!isGeolocationEnabled) {
             this.setState({
                 info: "Geolocation is not enabled"
             });
@@ -71,36 +113,43 @@ class App extends React.Component {
                 info: "Your browser does not support Geolocation"
             });
         }
+        this.setColor();
     };
 
-    componentDidMount() {
-        window.addEventListener('load', this.getGeoWeather);
-    }
-
     render() {
+        const css = {backgroundColor: this.state.bgColor};
        return (
+           <div style={css} id="background-block">
            <div className="ui container">
-                <Titles />
-               <div className="ui three column doubling stackable grid container">
-                   <Form getWeather={this.getWeather}/>
+               <Titles />
+               <div className="ui one column doubling stackable grid container">
+                   <WeatherIcon
+                       icon={this.state.icon}
+                   />
                     <Weather
                         temperature={this.state.temperature}
                         city={this.state.city}
                         country={this.state.country}
                         humidity={this.state.humidity}
                         description={this.state.description}
-                        info={this.state.info}
+                        icon={this.state.icon}
                     />
                </div>
+               <div className="ui one column doubling stackable grid container">
+                   <Form
+                       getWeather={this.getWeather}
+                       info={this.state.info}
+                   />
+               </div>
+           </div>
            </div>
        );
     }
 }
 
-
 export default geolocated({
     positionOptions: {
         enableHighAccuracy: false,
     },
-    userDecisionTimeout: 100
+    userDecisionTimeout: 5000
 })(App);

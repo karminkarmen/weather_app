@@ -1,0 +1,112 @@
+@import "form_styles.scss";
+
+
+*::selection:not(input) {
+  color: black !important;
+  background: white !important;
+}
+
+.ui.container {
+  //padding: 2% 0 0 0;
+}
+
+#background-block {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.ui.header {
+  display: flex;
+  justify-content: center;
+  h1 {
+    margin: 2rem 0;
+    color: white;
+    letter-spacing: 0.5rem;
+    font-size: 3rem;
+  }
+}
+
+#form-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  #form-label {
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    margin: 0.5rem 0;
+    text-align: center;
+  }
+  input{
+    margin: 0 2rem;
+    background-color: transparent;
+    border: 3px solid white;
+    border-radius: 22px;
+    color: white;
+    &::placeholder {
+      color: white;
+    }
+    &:-webkit-autofill, &:focus{
+      background-color: white;
+      color: black;
+      border-color: white !important;
+      font-weight: bold;
+    }
+  }
+  i {
+    margin-right: 30px;
+    color: white;
+  }
+  button {
+    height: 44px;
+    margin: 0 2rem;
+    margin-top: 1.15rem;
+    border-radius: 22px;
+    border: 2px solid white;
+    width: 12vw;
+  }
+}
+
+#submit-block {
+  margin-top: -20px;
+}
+
+#api-info-column, #submit-block {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  #weather-info {
+    display: flex;
+    margin: 20px 0 0 37px;
+    .weather-info-elem {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 20px;
+      p {
+        font-size: 1.5rem;
+        margin: 0 1rem;
+      }
+      img {
+        height: 50px;
+      }
+    }
+  }
+}
+
+#api-icon-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 20rem;
+  }
+}
