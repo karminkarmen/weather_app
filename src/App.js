@@ -19,14 +19,34 @@ class App extends React.Component {
         description: undefined,
         icon: undefined,
         info: undefined,
-        bgColor: "white"
+        bgColor: undefined
     };
 
+    componentDidMount() {
+        this.defWeather()
+    }
+    
     componentWillReceiveProps(nextProps) {
         if (nextProps.coords) {
             this.getGeoWeather(nextProps);
         }
     }
+
+    defWeather = async() => {
+        const location = "Wroclaw";
+        const api_call = await fetch(`//api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`);
+        const data = await api_call.json();
+        this.setState({
+            temperature: data.main.temp,
+            city: data.name,
+            country: data.sys.country,
+            humidity: data.main.humidity,
+            icon: data.weather[0].icon,
+            description: data.weather[0].description,
+            info: ''
+        });
+        this.setColor();
+    };
 
     setColor = () => {
         const icon = this.state.icon;
@@ -40,7 +60,6 @@ class App extends React.Component {
     };
 
     getColorFromConfig = (temp, icon) => {
-        console.log(temp, icon);
         for (let c of ColorConfig) {
             if ((c.temp.min === undefined || temp >= c.temp.min) && (c.temp.max === undefined || temp < c.temp.max) && (!c.icon.length || c.icon.includes(icon))) {
                 return c.color;
@@ -60,7 +79,6 @@ class App extends React.Component {
         }
         const api_call = await fetch(`//api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`);
         const data = await api_call.json();
-        console.log(data);
         if(!data.main){
             this.setState({
                 info: 'Location not found'
@@ -92,7 +110,6 @@ class App extends React.Component {
         const geoloc_api_call = await fetch(`//api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
 
         const data = await geoloc_api_call.json();
-        console.log(data);
 
         if (isGeolocationAvailable) {
             this.setState({
