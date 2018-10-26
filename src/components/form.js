@@ -11,13 +11,6 @@ const Form = ({getWeather, info}) => (
                     <i class="search icon"></i>
                 </div>
             </div>
-            {/*<div className="field">*/}
-                {/*<label id="form-label">Country</label>*/}
-                {/*<div className="ui icon input">*/}
-                    {/*<input type="text" name="country" placeholder="Country"></input>*/}
-                    {/*<i class="search icon"></i>*/}
-                {/*</div>*/}
-            {/*</div>*/}
                 <button className="ui inverted standard button">Get weather</button>
             </div>
             <div id="submit-block">
