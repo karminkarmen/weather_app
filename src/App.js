@@ -7,7 +7,7 @@ import WeatherIcon from './components/weathericon.js';
 import ColorConfig from './color-config.json';
 import 'semantic-ui/dist/semantic.min.css';
 
-const API_KEY = '094494d1ce4e4d6d4c1d0a5f68ca29cc';
+const API_KEY = '508155ef4249c57e5797af40d9282d00';
 
 class App extends React.Component {
   state = {
