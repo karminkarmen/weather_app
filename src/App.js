@@ -150,9 +150,4 @@ class App extends React.Component {
   }
 }
 
-export default geolocated ({
-  positionOptions: {
-    enableHighAccuracy: true,
-  },
-  userDecisionTimeout: 5000,
-}) (App);
+export default geolocated () (App);
