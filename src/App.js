@@ -18,12 +18,11 @@ class App extends React.Component {
     description: undefined,
     icon: undefined,
     info: undefined,
-    bgColor: 'blue',
+    bgColor: undefined,
   };
 
-  getDerivedStateFromProps (props) {
-    console.log (props);
-    this.getGeoWeather (props);
+  componentWillReceiveProps (nextProps) {
+    this.getGeoWeather (nextProps);
   }
 
   setColor = () => {
@@ -51,10 +50,8 @@ class App extends React.Component {
   };
 
   getWeather = async e => {
-    console.log (e);
     e.preventDefault ();
     const location = e.target.elements.location.value;
-    console.log (location);
     if (!location) {
       this.setState ({
         info: 'Please input location',
@@ -88,14 +85,8 @@ class App extends React.Component {
     isGeolocationEnabled,
     isGeolocationAvailable,
   }) => {
-    const lat = coords.latitude;
-    const lon = coords.longitude;
-
-    if (!coords) {
-      this.setState ({
-        info: 'Wait',
-      });
-    }
+    const lat = coords ? coords.latitude : 52.2297;
+    const lon = coords ? coords.longitude : 21.0122;
 
     const geoloc_api_call = await fetch (
       `//api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
@@ -126,7 +117,6 @@ class App extends React.Component {
   };
 
   render () {
-    console.log (this.props.coords);
     const css = {backgroundColor: this.state.bgColor};
     return (
       <div style={css} id="background-block">
@@ -154,7 +144,7 @@ class App extends React.Component {
 
 export default geolocated ({
   positionOptions: {
-    enableHighAccuracy: false,
+    enableHighAccuracy: true,
   },
   userDecisionTimeout: 5000,
 }) (App);
