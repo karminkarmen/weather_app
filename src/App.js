@@ -19,6 +19,7 @@ class App extends React.Component {
     icon: undefined,
     info: undefined,
     bgColor: undefined,
+    loader: true,
   };
 
   componentWillReceiveProps (nextProps) {
@@ -76,6 +77,7 @@ class App extends React.Component {
       icon: data.weather[0].icon,
       description: data.weather[0].description,
       info: '',
+      loader: false,
     });
     this.setColor ();
   };
@@ -103,6 +105,7 @@ class App extends React.Component {
         description: data.weather[0].description,
         icon: data.weather[0].icon,
         info: '',
+        loader: false,
       });
     } else if (!isGeolocationEnabled) {
       this.setState ({
@@ -132,6 +135,11 @@ class App extends React.Component {
               description={this.state.description}
               icon={this.state.icon}
             />
+            {this.state.loader
+              ? <div class="ui active inverted dimmer">
+                  <div class="ui text loader">Loading</div>
+                </div>
+              : null}
           </div>
           <div className="ui one column doubling stackable grid container">
             <Form getWeather={this.getWeather} info={this.state.info} />
