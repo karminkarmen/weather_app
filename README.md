@@ -4,7 +4,7 @@ Project of weather application. Using this app you can check actual weather in e
 The default localization is your current location, the app is checking it using geolocalization.
 It was my first project in react :)
 
-**Technologies: HTML, SASS, React, Gulp, semantic ui**
+**Technologies: HTML, SASS, React, Gulp, semantic UI**
 
 <a href="https://karminkarmen.github.io/REACT-weather-app/">**LINK TO PREVIEW**</a>
  
