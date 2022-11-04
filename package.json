@@ -21,11 +21,11 @@
     "react-geolocation": "^1.0.3",
     "react-scripts": "1.1.4",
     "react-svg": "^4.0.13",
-    "semantic-ui": "^2.3.1"
+    "semantic-ui": "^2.5.0"
   },
   "devDependencies": {
     "browser-sync": "^2.24.4",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4"
